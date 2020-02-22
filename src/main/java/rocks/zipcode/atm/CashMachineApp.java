@@ -61,7 +61,7 @@ public class CashMachineApp extends Application {
         Text newEmail = new Text();
         newEmail.setText("Please enter your email:");
         TextField emailField = new TextField();
-        
+
         Text newPin = new Text();
         newPin.setText("Please enter your desired pin:");
         TextField pinField = new TextField();
@@ -77,7 +77,10 @@ public class CashMachineApp extends Application {
 
         /*Scene3 * * * * * * * * * * MAIN PAGE AFTER LOGIN * * * * * * * * * * * * * * * */
         /*Scene3 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-        Button btnSubmitCredentials = new Button("Test");
+        Text title = new Text();
+        title.setText("This is where all of our main bank processes will go");
+
+        Button btnSubmitCredentials = new Button("The");
         Button btnGoBack = new Button("testAgain");
         btnGoBack.setOnAction(e -> window.setScene(scene1));
 
@@ -85,7 +88,7 @@ public class CashMachineApp extends Application {
         VBox vbox3 = new VBox();
         flowpane.getChildren().add(btnSubmitCredentials);
         flowpane.getChildren().add(btnGoBack);
-        vbox3.getChildren().addAll(flowpane, btnSubmitCredentials, btnGoBack);
+        vbox3.getChildren().addAll(title, flowpane, btnSubmitCredentials, btnGoBack);
         scene3 = new Scene(vbox3, 600, 600);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
