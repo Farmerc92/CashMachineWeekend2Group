@@ -1,5 +1,6 @@
 package rocks.zipcode.atm;
 
+import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
@@ -28,28 +29,40 @@ public class CashMachineApp extends Application {
     @Override
     public void start(Stage mainStage) throws Exception {
         window = mainStage;
+        Bank bank = new Bank();
+        FlowPane flowpane = new FlowPane();
+        CashMachine cashMachine = new CashMachine(bank);
 
         /*Scene1 * * * * * * * * LOGIN OR CREATE ACCOUNT PAGE * * * * * * * * * * * * * */
         /*Scene1 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
         TextField textField = new TextField();
-        FlowPane flowpane = new FlowPane();
+        FlowPane flowpane1 = new FlowPane();
         Button btnLogin = new Button("Login");
-        btnLogin.setOnAction(a -> window.setScene(scene3));
+        TextArea areaInfo = new TextArea();
+        btnLogin.setOnAction(a -> {
+            window.setScene(scene3);
+            int id = Integer.parseInt(textField.getText());
+            cashMachine.login(id);
+
+            areaInfo.setText(cashMachine.toString());
+        });
+
         Button btnCreateAccount = new Button("Create Account");
         btnCreateAccount.setOnAction(e -> window.setScene(scene2));
-        TextArea areaInfo = new TextArea();
 
         VBox vbox = new VBox(10);
         scene1 = new Scene (vbox, 600, 600);
 
-        flowpane.getChildren().add(btnLogin);
-        flowpane.getChildren().add(btnCreateAccount);
-        vbox.getChildren().addAll(btnLogin, btnCreateAccount, textField, flowpane, areaInfo);
+        flowpane1.getChildren().add(btnLogin);
+        flowpane1.getChildren().add(btnCreateAccount);
+
+        vbox.getChildren().addAll(flowpane1, textField, areaInfo);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
         /*Scene2 * * * * * * * * CREATE ACCOUNT PAGE * * * * * * * * * * * * * * * * * * */
         /*Scene2 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        FlowPane flowPane2 = new FlowPane();
         Button btnCreate = new Button("Submit");
         Button btnSubmit = new Button("Go Back");
         btnSubmit.setOnAction(e -> window.setScene(scene1));
@@ -69,14 +82,15 @@ public class CashMachineApp extends Application {
 
         VBox vbox2 = new VBox();
         scene2 = new Scene(vbox2, 600, 600);
-        flowpane.getChildren().add(btnCreate);
-        flowpane.getChildren().add(btnSubmit);
-        vbox2.getChildren().addAll(newName, nameField, newEmail, emailField, newPin, pinField, flowpane, btnCreate, btnSubmit);
+        flowPane2.getChildren().add(btnCreate);
+        flowPane2.getChildren().add(btnSubmit);
+        vbox2.getChildren().addAll(newName, nameField, newEmail, emailField, newPin, pinField, flowPane2);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
         /*Scene3 * * * * * * * * * * MAIN PAGE AFTER LOGIN * * * * * * * * * * * * * * * */
         /*Scene3 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        FlowPane flowPane3 = new FlowPane();
         Text title = new Text();
         title.setText("This is where all of our main bank processes will go");
 
@@ -86,9 +100,9 @@ public class CashMachineApp extends Application {
 
 
         VBox vbox3 = new VBox();
-        flowpane.getChildren().add(btnSubmitCredentials);
-        flowpane.getChildren().add(btnGoBack);
-        vbox3.getChildren().addAll(title, flowpane, btnSubmitCredentials, btnGoBack);
+        flowPane3.getChildren().add(btnSubmitCredentials);
+        flowPane3.getChildren().add(btnGoBack);
+        vbox3.getChildren().addAll(title, flowPane3);
         scene3 = new Scene(vbox3, 600, 600);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
