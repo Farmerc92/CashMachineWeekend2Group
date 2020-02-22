@@ -36,7 +36,8 @@ public class CashMachineApp extends Application {
         /*Scene1 * * * * * * * * LOGIN OR CREATE ACCOUNT PAGE * * * * * * * * * * * * * */
         /*Scene1 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
         TextField textField = new TextField();
-        FlowPane flowpane1 = new FlowPane();
+        FlowPane flowPane1 = new FlowPane();
+        flowPane1.setHgap(10);
         Button btnLogin = new Button("Login");
         TextArea areaInfo = new TextArea();
         btnLogin.setOnAction(a -> {
@@ -57,19 +58,20 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         scene1 = new Scene (vbox, 600, 600);
 
-        flowpane1.getChildren().add(btnLogin);
-        flowpane1.getChildren().add(btnCreateAccount);
-        flowpane1.getChildren().add(btnExit);
+        flowPane1.getChildren().add(btnLogin);
+        flowPane1.getChildren().add(btnCreateAccount);
+        flowPane1.getChildren().add(btnExit);
 
-        vbox.getChildren().addAll(flowpane1, textField, areaInfo);
+        vbox.getChildren().addAll(flowPane1, textField, areaInfo);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
         /*Scene2 * * * * * * * * CREATE ACCOUNT PAGE * * * * * * * * * * * * * * * * * * */
         /*Scene2 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
         FlowPane flowPane2 = new FlowPane();
+        flowPane2.setHgap(10);
         Button btnCreate = new Button("Submit");
-        Button btnSubmit = new Button("Go Back");
+        Button btnSubmit = new Button("Go Back To Login");
         btnSubmit.setOnAction(e -> window.setScene(scene1));
 
         Text newName = new Text();
@@ -96,18 +98,22 @@ public class CashMachineApp extends Application {
         /*Scene3 * * * * * * * * * * MAIN PAGE AFTER LOGIN * * * * * * * * * * * * * * * */
         /*Scene3 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
         FlowPane flowPane3 = new FlowPane();
+        flowPane3.setHgap(10);
         Text title = new Text();
-        title.setText("This is where all of our main bank processes will go");
+        title.setText("Welcome to your account!");
+        TextArea accountInfoDisplay = new TextArea();
 
-        Button btnSubmitCredentials = new Button("The");
-        Button btnGoBack = new Button("testAgain");
+        TextField actionField = new TextField();
+        Button btnDeposit = new Button("Deposit");
+        Button btnWithdraw = new Button("Withdraw");
+        Button btnGoBack = new Button("Go Back To Login");
         btnGoBack.setOnAction(e -> window.setScene(scene1));
 
-
         VBox vbox3 = new VBox();
-        flowPane3.getChildren().add(btnSubmitCredentials);
+        flowPane3.getChildren().add(btnDeposit);
+        flowPane3.getChildren().add(btnWithdraw);
         flowPane3.getChildren().add(btnGoBack);
-        vbox3.getChildren().addAll(title, flowPane3);
+        vbox3.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
         scene3 = new Scene(vbox3, 600, 600);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
