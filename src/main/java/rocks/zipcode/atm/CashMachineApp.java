@@ -22,30 +22,24 @@ public class CashMachineApp extends Application {
     private CashMachine cashMachine = new CashMachine(new Bank());
 
     private Parent createLoginPage() {
-
-        TextField field = new TextField();
-        
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
 
+        TextField field = new TextField();
+        TextArea areaInfo = new TextArea();
+
         Button btnLogin = new Button("Login");
-        /*btnLogin.setPrefSize(100, 75);
-        btnLogin.setTranslateX(200);
-        btnLogin.setTranslateY(100);*/
         btnLogin.setOnAction(e -> {
             int id = Integer.parseInt(field.getText());
             cashMachine.login(id);
 
-            //areaInfo.setText(cashMachine.toString());
+            areaInfo.setText(cashMachine.toString());
         });
 
         Button btnCreate = new Button("Create Account");
-        /*btnCreate.setPrefSize(100, 75);
-        btnLogin.setTranslateX(200);
-        btnLogin.setTranslateY(100);*/
         btnCreate.setOnAction(e -> {
             int id = Integer.parseInt(field.getText());
-            cashMachine.login(id);
+            cashMachine.createAccount(id);
 
             //areaInfo.setText(cashMachine.toString());
         });
@@ -55,7 +49,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnLogin);
         flowpane.getChildren().add(btnCreate);
 
-        vbox.getChildren().addAll(flowpane, field);
+        vbox.getChildren().addAll(flowpane, field, areaInfo);
         return vbox;
     }
 
@@ -118,6 +112,8 @@ public class CashMachineApp extends Application {
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
+
+    //Scene scene1, scene2;
 
     @Override
     public void start(Stage stage) throws Exception {
