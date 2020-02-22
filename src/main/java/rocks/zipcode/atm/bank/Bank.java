@@ -1,7 +1,13 @@
 package rocks.zipcode.atm.bank;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import rocks.zipcode.atm.ActionResult;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +16,7 @@ import java.util.Map;
  */
 public class Bank {
 
-    private Map<Integer, Account> accounts = new HashMap<>();
+    private static Map<Integer, Account> accounts = new HashMap<>();
 
     public Bank() {
         accounts.put(1000, new BasicAccount(new AccountData(
@@ -28,7 +34,7 @@ public class Bank {
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
-            return ActionResult.fail("No account with id: " + id + "\nTry account 1000 or 2000");
+            return ActionResult.fail("No account with id: " + id + "\nPlease Try again or create a new account.");
         }
     }
 // In progress - Giles ************************************************************************************
@@ -58,5 +64,17 @@ public class Bank {
         } else {
             return ActionResult.fail("Withdraw failed: " + amount + ". Account has: " + account.getBalance());
         }
+    }
+
+    public static void loadBankAccounts() throws IOException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        accounts = objectMapper.readValue(new File("accounts.json"), new TypeReference<Map<Integer, Account>>(){});
+    }
+
+    public static void saveBankAccounts() throws IOException{
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+        writer.writeValue(new File("accounts.json"), accounts);
     }
 }
