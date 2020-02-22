@@ -41,6 +41,7 @@ public final class AccountData {
         return pin;
     }
 
+
     public static int getRandomIdBasicAccount(){
         Random rand = new Random();
         int sum = rand.nextInt(4999) + 1000;
