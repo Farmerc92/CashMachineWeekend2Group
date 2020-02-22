@@ -31,7 +31,17 @@ public class Bank {
             return ActionResult.fail("No account with id: " + id + "\nTry account 1000 or 2000");
         }
     }
+// In progress - Giles ************************************************************************************
+    /*public ActionResult<AccountData> createAccount(int id) {
+        Account account = accounts.get(id);
 
+        if (account != null) {
+            return ActionResult.success(account.getAccountData());
+        } else {
+            return ActionResult.fail("No account with id: " + id + "\nTry account 1000 or 2000");
+        }
+    }*/
+//****************************************************************************************************************
     public ActionResult<AccountData> deposit(AccountData accountData, int amount) {
         Account account = accounts.get(accountData.getId());
         account.deposit(amount);
