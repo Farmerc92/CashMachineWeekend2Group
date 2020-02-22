@@ -1,5 +1,8 @@
 package rocks.zipcode.atm;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
 import rocks.zipcode.atm.bank.Bank;
@@ -20,7 +23,9 @@ import javafx.scene.text.Text;
 public class CashMachineApp extends Application {
 
     Stage window;
-    Scene scene1, scene2, scene3;
+    Scene scene1, scene2, scene3, scene4;
+    ComboBox comboBox;
+    ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
 
     public static void main(String[] args) {
         launch(args);
@@ -48,28 +53,35 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
 
-        Button btnCreateAccount = new Button("Create Account");
+        Button btnCreateBasicAccount = new Button("Create Account");
+        btnCreateBasicAccount.setOnAction(e -> { window.setScene(scene2); });
+
         Button btnExit = new Button("Exit");
-        btnExit.setOnAction(e -> {
-            cashMachine.exitProgram();
-        });
-        btnCreateAccount.setOnAction(e -> window.setScene(scene2));
+        btnExit.setOnAction(e -> { cashMachine.exitProgram(); });
+
+        btnCreateBasicAccount.setOnAction(e -> window.setScene(scene2));
 
         VBox vbox = new VBox(10);
         scene1 = new Scene (vbox, 600, 600);
 
         flowPane1.getChildren().add(btnLogin);
-        flowPane1.getChildren().add(btnCreateAccount);
+        flowPane1.getChildren().add(btnCreateBasicAccount);
         flowPane1.getChildren().add(btnExit);
 
         vbox.getChildren().addAll(flowPane1, textField, areaInfo);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-        /*Scene2 * * * * * * * * CREATE ACCOUNT PAGE * * * * * * * * * * * * * * * * * * */
+        /*Scene2 * * * * * * * * CREATE ACCOUNT PAGE * * * * * * * * * * */
         /*Scene2 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        Text selectAccountType = new Text();
+        selectAccountType.setText("Please choose an account type using the dropdown menu.");
+        final ComboBox comboBox = new ComboBox(accountOptions);
         FlowPane flowPane2 = new FlowPane();
         flowPane2.setHgap(10);
+        Text basicWelcome = new Text();
+        basicWelcome.setText("Welcome to your personalized Basic account creation.");
+
         Button btnCreate = new Button("Submit");
         Button btnSubmit = new Button("Go Back To Login");
         btnSubmit.setOnAction(e -> window.setScene(scene1));
@@ -91,7 +103,17 @@ public class CashMachineApp extends Application {
         scene2 = new Scene(vbox2, 600, 600);
         flowPane2.getChildren().add(btnCreate);
         flowPane2.getChildren().add(btnSubmit);
-        vbox2.getChildren().addAll(newName, nameField, newEmail, emailField, newPin, pinField, flowPane2);
+        vbox2.getChildren().addAll(
+                basicWelcome,
+                selectAccountType,
+                comboBox,
+                newName,
+                nameField,
+                newEmail,
+                emailField,
+                newPin,
+                pinField,
+                flowPane2);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
@@ -109,12 +131,12 @@ public class CashMachineApp extends Application {
         Button btnGoBack = new Button("Go Back To Login");
         btnGoBack.setOnAction(e -> window.setScene(scene1));
 
-        VBox vbox3 = new VBox();
+        VBox vbox4 = new VBox();
         flowPane3.getChildren().add(btnDeposit);
         flowPane3.getChildren().add(btnWithdraw);
         flowPane3.getChildren().add(btnGoBack);
-        vbox3.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
-        scene3 = new Scene(vbox3, 600, 600);
+        vbox4.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
+        scene4 = new Scene(vbox4, 600, 600);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
