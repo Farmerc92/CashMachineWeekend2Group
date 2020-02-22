@@ -61,6 +61,7 @@ public class CashMachine {
     }
 
     public void exitProgram() {
+        //
         System.exit(0);
     }
 
