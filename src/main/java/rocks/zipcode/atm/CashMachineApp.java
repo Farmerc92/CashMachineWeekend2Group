@@ -48,6 +48,10 @@ public class CashMachineApp extends Application {
         });
 
         Button btnCreateAccount = new Button("Create Account");
+        Button btnExit = new Button("Exit");
+        btnExit.setOnAction(e -> {
+            cashMachine.exitProgram();
+        });
         btnCreateAccount.setOnAction(e -> window.setScene(scene2));
 
         VBox vbox = new VBox(10);
@@ -55,6 +59,7 @@ public class CashMachineApp extends Application {
 
         flowpane1.getChildren().add(btnLogin);
         flowpane1.getChildren().add(btnCreateAccount);
+        flowpane1.getChildren().add(btnExit);
 
         vbox.getChildren().addAll(flowpane1, textField, areaInfo);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

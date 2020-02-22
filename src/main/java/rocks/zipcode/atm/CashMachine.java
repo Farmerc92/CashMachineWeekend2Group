@@ -54,10 +54,14 @@ public class CashMachine {
         }
     }
 
-    public void exit() {
+    public void clear() {
         if (accountData != null) {
             accountData = null;
         }
+    }
+
+    public void exitProgram() {
+        System.exit(0);
     }
 
     @Override
