@@ -16,16 +16,21 @@ import java.util.Map;
  */
 public class Bank {
 
+
     private static Map<Integer, Account> accounts = new HashMap<>();
 
     public Bank() {
-        accounts.put(1000, new BasicAccount(new AccountData(
-                1000, 1234, "Example 1", "example1@gmail.com", 500
-        )));
+//        accounts.put(1000, new BasicAccount(new AccountData(
+//                1000, 1234, "Example 1", "example1@gmail.com", 500
+//        )));
+//
+//        accounts.put(2000, new PremiumAccount(new AccountData(
+//                2000, 1234,"Example 2", "example2@gmail.com", 200
+//        )));
+    }
 
-        accounts.put(2000, new PremiumAccount(new AccountData(
-                2000, 1234,"Example 2", "example2@gmail.com", 200
-        )));
+    public static Map<Integer, Account> getAccounts() {
+        return accounts;
     }
 
     public ActionResult<AccountData> getAccountById(int id) {
@@ -63,6 +68,25 @@ public class Bank {
             return ActionResult.success(account.getAccountData());
         } else {
             return ActionResult.fail("Withdraw failed: " + amount + ". Account has: " + account.getBalance());
+        }
+    }
+
+    public Integer createAccount(String name, String email, Integer pin, Integer balance){
+        if (balance > 200){
+            int premiumId = AccountData.getRandomIdPremiumAccount();
+            while (this.accounts.containsKey(premiumId)){
+                premiumId = AccountData.getRandomIdPremiumAccount();
+            }
+            this.accounts.put(premiumId, new PremiumAccount(new AccountData(premiumId, pin, name, email, balance)));
+            return premiumId;
+        }
+        else {
+            int basicId = AccountData.getRandomIdBasicAccount();
+            while(this.accounts.containsKey(basicId)){
+                basicId = AccountData.getRandomIdBasicAccount();
+            }
+            this.accounts.put(basicId, new BasicAccount(new AccountData(basicId, pin, name, email, balance)));
+            return basicId;
         }
     }
 
