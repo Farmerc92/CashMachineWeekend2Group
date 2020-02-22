@@ -29,12 +29,12 @@ public class CashMachine {
         );
     }
 //adding a button -Giles **************************************************
-    public void createAccount(int id) {
+    /*public void createAccount(int id) {
         tryCall(
                 () -> bank.getAccountById(id),
                 update
         );
-    }
+    }*/
 //********************************************************************************
     public void deposit(int amount) {
         if (accountData != null && amount > 0) {
@@ -54,10 +54,14 @@ public class CashMachine {
         }
     }
 
-    public void exit() {
+    public void clear() {
         if (accountData != null) {
             accountData = null;
         }
+    }
+
+    public void exitProgram() {
+        System.exit(0);
     }
 
     @Override
