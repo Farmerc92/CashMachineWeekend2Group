@@ -2,12 +2,11 @@ package rocks.zipcode.atm;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.StackPane;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -23,7 +22,7 @@ import javafx.scene.text.Text;
 public class CashMachineApp extends Application {
 
     Stage window;
-    Scene scene1, scene2, scene3, scene4;
+    Scene scene1, scene2, scene3;
     ComboBox comboBox;
     ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
 
@@ -62,13 +61,17 @@ public class CashMachineApp extends Application {
         btnCreateBasicAccount.setOnAction(e -> window.setScene(scene2));
 
         VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(10, 15, 10, 15));
         scene1 = new Scene (vbox, 600, 600);
 
         flowPane1.getChildren().add(btnLogin);
         flowPane1.getChildren().add(btnCreateBasicAccount);
         flowPane1.getChildren().add(btnExit);
 
-        vbox.getChildren().addAll(flowPane1, textField, areaInfo);
+        vbox.getChildren().addAll(
+                flowPane1,
+                textField,
+                areaInfo);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
@@ -83,6 +86,7 @@ public class CashMachineApp extends Application {
         basicWelcome.setText("Welcome to your personalized Basic account creation.");
 
         Button btnCreate = new Button("Submit");
+        btnCreate.setOnAction(e -> {window.setScene(scene1);});
         Button btnSubmit = new Button("Go Back To Login");
         btnSubmit.setOnAction(e -> window.setScene(scene1));
 
@@ -98,11 +102,17 @@ public class CashMachineApp extends Application {
         newPin.setText("Please enter your desired pin:");
         TextField pinField = new TextField();
 
+        Text newDepositAmount = new Text();
+        newDepositAmount.setText("Amount To Deposit: ");
+        TextField depositField = new TextField();
+
 
         VBox vbox2 = new VBox();
         scene2 = new Scene(vbox2, 600, 600);
+        vbox2.setPadding(new Insets(10, 15, 10, 15));
         flowPane2.getChildren().add(btnCreate);
         flowPane2.getChildren().add(btnSubmit);
+        flowPane2.setPadding(new Insets(10, 10, 10, 0));
         vbox2.getChildren().addAll(
                 basicWelcome,
                 selectAccountType,
@@ -113,6 +123,8 @@ public class CashMachineApp extends Application {
                 emailField,
                 newPin,
                 pinField,
+                newDepositAmount,
+                depositField,
                 flowPane2);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -128,15 +140,17 @@ public class CashMachineApp extends Application {
         TextField actionField = new TextField();
         Button btnDeposit = new Button("Deposit");
         Button btnWithdraw = new Button("Withdraw");
-        Button btnGoBack = new Button("Go Back To Login");
+        Button btnGoBack = new Button("Log Out");
         btnGoBack.setOnAction(e -> window.setScene(scene1));
 
-        VBox vbox4 = new VBox();
+        VBox vbox3 = new VBox();
         flowPane3.getChildren().add(btnDeposit);
         flowPane3.getChildren().add(btnWithdraw);
         flowPane3.getChildren().add(btnGoBack);
-        vbox4.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
-        scene4 = new Scene(vbox4, 600, 600);
+        flowPane3.setPadding(new Insets(10, 10, 10, 0));
+        vbox3.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
+        vbox3.setPadding(new Insets(10, 15, 10, 15));
+        scene3 = new Scene(vbox3, 600, 600);
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
