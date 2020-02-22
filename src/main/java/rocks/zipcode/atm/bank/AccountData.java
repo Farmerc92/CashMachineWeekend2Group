@@ -6,16 +6,17 @@ package rocks.zipcode.atm.bank;
 public final class AccountData {
 
     private final int id;
+    private final int pin;
     private final String name;
     private final String email;
-
     private final int balance;
 
-    AccountData(int id, String name, String email, int balance) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.balance = balance;
+    AccountData(int newId, int newPin, String newName, String newEmail, int newBalance) {
+        this.id = newId;
+        this.pin = newPin;
+        this.name = newName;
+        this.email = newEmail;
+        this.balance = newBalance;
     }
 
     public int getId() {
@@ -32,6 +33,10 @@ public final class AccountData {
 
     public int getBalance() {
         return balance;
+    }
+
+    public int getPin() {
+        return pin;
     }
 
     @Override
