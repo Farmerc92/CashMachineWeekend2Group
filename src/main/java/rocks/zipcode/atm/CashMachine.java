@@ -37,7 +37,7 @@ public class CashMachine {
     }*/
 //********************************************************************************
     public void deposit(int amount) {
-        if (accountData != null) {
+        if (accountData != null && amount > 0) {
             tryCall(
                     () -> bank.deposit(accountData, amount),
                     update
@@ -46,7 +46,7 @@ public class CashMachine {
     }
 
     public void withdraw(int amount) {
-        if (accountData != null) {
+        if (accountData != null && amount > 0) {
             tryCall(
                     () -> bank.withdraw(accountData, amount),
                     update
