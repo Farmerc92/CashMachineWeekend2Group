@@ -33,6 +33,14 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
 
+        Button btnPin = new Button("Enter Pin");
+        btnSubmit.setOnAction(e -> {
+            int id = Integer.parseInt(field.getText());
+            cashMachine.login(id);
+
+            areaInfo.setText(cashMachine.toString());
+        });
+
         Button btnDeposit = new Button("Deposit");
         btnDeposit.setOnAction(e -> {
             int amount = Integer.parseInt(field.getText());
@@ -59,6 +67,7 @@ public class CashMachineApp extends Application {
         FlowPane flowpane = new FlowPane();
 
         flowpane.getChildren().add(btnSubmit);
+        flowpane.getChildren().add(btnPin);
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
