@@ -1,5 +1,7 @@
 package rocks.zipcode.atm;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -18,6 +20,42 @@ public class CashMachineApp extends Application {
 
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
+
+    private Parent createLoginPage() {
+        VBox vbox = new VBox(10);
+        vbox.setPrefSize(600, 600);
+
+        TextField field = new TextField();
+        TextArea areaInfo = new TextArea();
+
+        Button btnLogin = new Button("Login");
+        btnLogin.setOnAction(e -> {
+            int id = Integer.parseInt(field.getText());
+            cashMachine.login(id);
+
+            areaInfo.setText(cashMachine.toString());
+        });
+
+        Button btnCreate = new Button("Create Account");
+        btnCreate.setOnAction(e -> {
+            int id = Integer.parseInt(field.getText());
+            cashMachine.createAccount(id);
+
+            //areaInfo.setText(cashMachine.toString());
+        });
+
+        FlowPane flowpane = new FlowPane();
+
+        flowpane.getChildren().add(btnLogin);
+        flowpane.getChildren().add(btnCreate);
+
+        vbox.getChildren().addAll(flowpane, field, areaInfo);
+        return vbox;
+    }
+
+
+
+
 
     private Parent createContent() {
         VBox vbox = new VBox(10);
@@ -75,9 +113,11 @@ public class CashMachineApp extends Application {
         return vbox;
     }
 
+    //Scene scene1, scene2;
+
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(createContent()));
+        stage.setScene(new Scene(createLoginPage()));
         stage.show();
     }
 
