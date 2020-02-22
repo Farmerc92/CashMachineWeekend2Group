@@ -1,5 +1,7 @@
 package rocks.zipcode.atm.bank;
 
+import java.util.Random;
+
 /**
  * @author ZipCodeWilmington
  */
@@ -37,6 +39,18 @@ public final class AccountData {
 
     public int getPin() {
         return pin;
+    }
+
+    public static int getRandomIdBasicAccount(){
+        Random rand = new Random();
+        int sum = rand.nextInt(4999) + 1000;
+        return sum;
+    }
+
+    public static int getRandomIdPremiumAccount(){
+        Random rand = new Random();
+        int sum = rand.nextInt(9999) + 5000;
+        return sum;
     }
 
     @Override
