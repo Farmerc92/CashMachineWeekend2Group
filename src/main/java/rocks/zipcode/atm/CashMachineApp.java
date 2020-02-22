@@ -3,7 +3,6 @@ package rocks.zipcode.atm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
