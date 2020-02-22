@@ -41,13 +41,13 @@ public final class AccountData {
         return pin;
     }
 
-    public int getRandomIdBasicAccount(){
+    public static int getRandomIdBasicAccount(){
         Random rand = new Random();
         int sum = rand.nextInt(4999) + 1000;
         return sum;
     }
 
-    public int getRandomIdPremiumAccount(){
+    public static int getRandomIdPremiumAccount(){
         Random rand = new Random();
         int sum = rand.nextInt(9999) + 5000;
         return sum;
