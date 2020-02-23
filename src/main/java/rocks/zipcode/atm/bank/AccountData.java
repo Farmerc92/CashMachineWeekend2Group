@@ -43,13 +43,13 @@ public final class AccountData {
 
     public static int getRandomIdBasicAccount(){
         Random rand = new Random();
-        int sum = rand.nextInt(4999) + 1000;
+        int sum = rand.nextInt(3999) + 1000;
         return sum;
     }
 
     public static int getRandomIdPremiumAccount(){
         Random rand = new Random();
-        int sum = rand.nextInt(9999) + 5000;
+        int sum = rand.nextInt(4999) + 5000;
         return sum;
     }
 
