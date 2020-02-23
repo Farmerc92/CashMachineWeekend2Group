@@ -35,7 +35,6 @@ public class Bank {
 
     public ActionResult<AccountData> getAccountById(int id) {
         Account account = accounts.get(id);
-        //Account account2 = accounts.get(pin);
 
         if (account != null) {
             return ActionResult.success(account.getAccountData());
@@ -84,7 +83,6 @@ public class Bank {
     }
 
     public Integer createAccount(String name, String email, Integer pin, Integer balance){
-
         if (balance > 200){
             int premiumId = AccountData.getRandomIdPremiumAccount();
             while (this.accounts.containsKey(premiumId)){

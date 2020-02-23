@@ -23,9 +23,9 @@ public class CashMachine {
         accountData = data;
     };
 
-    public void login(int pin) {
+    public void login(int id) {
         tryCall(
-                () -> bank.getAccountById(pin),
+                () -> bank.getAccountById(id),
                 update
         );
     }
