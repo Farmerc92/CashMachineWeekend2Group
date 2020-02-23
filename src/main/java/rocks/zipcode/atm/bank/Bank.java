@@ -90,15 +90,18 @@ public class Bank {
         }
     }
 
-    public static void loadBankAccounts() throws IOException{
+    public void loadBankAccounts() throws IOException {
+
         ObjectMapper objectMapper = new ObjectMapper();
-        accounts = objectMapper.readValue(new File("accounts.json"), new TypeReference<Map<Integer, Account>>(){});
+        accounts = objectMapper.readValue(new File("accounts.json"), new TypeReference<HashMap<Integer, Account>>() {
+        });
+
     }
 
     public static void saveBankAccounts() throws IOException{
-
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         writer.writeValue(new File("accounts.json"), accounts);
+
     }
 }

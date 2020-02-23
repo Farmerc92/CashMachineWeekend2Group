@@ -3,6 +3,7 @@ package rocks.zipcode.atm;
 import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -61,7 +62,11 @@ public class CashMachine {
     }
 
     public void exitProgram() {
-        //
+        try {
+            Bank.saveBankAccounts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.exit(0);
     }
 
