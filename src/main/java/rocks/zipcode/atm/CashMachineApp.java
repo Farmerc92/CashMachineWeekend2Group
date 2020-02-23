@@ -3,7 +3,9 @@ package rocks.zipcode.atm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,53 +17,47 @@ import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import java.util.logging.Logger;
+
 /**
  * @author ZipCodeWilmington
  */
 public class CashMachineApp extends Application {
 
-    Stage window;
-    Scene scene1, scene2, scene3;
     ComboBox comboBox;
+    Bank bank;
+    Integer globalId;
+    Stage mainStage;
+    CashMachine cashMachine;
     ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
+    private static final Logger LOGGER = Logger.getLogger(CashMachineApp.class.getName());
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public Parent defaultPage() {
 
-    @Override
-    public void start(Stage mainStage) throws Exception {
-        window = mainStage;
-        Bank bank = new Bank();
-        FlowPane flowpane = new FlowPane();
-        CashMachine cashMachine = new CashMachine(bank);
-
-        /*Scene1 * * * * * * * * LOGIN OR CREATE ACCOUNT PAGE * * * * * * * * * * * * * */
-        /*Scene1 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
         TextField textField = new TextField();
         FlowPane flowPane1 = new FlowPane();
         flowPane1.setHgap(10);
         Button btnLogin = new Button("Login");
         TextArea areaInfo = new TextArea();
         btnLogin.setOnAction(a -> {
-            window.setScene(scene3);
             int id = Integer.parseInt(textField.getText());
             cashMachine.login(id);
-
-            areaInfo.setText(cashMachine.toString());
+            mainStage.setScene(new Scene(LoggedInPage()));
         });
 
         Button btnCreateBasicAccount = new Button("Create Account");
-        btnCreateBasicAccount.setOnAction(e -> { window.setScene(scene2); });
+        btnCreateBasicAccount.setOnAction(e -> {
+            mainStage.setScene(new Scene(createAccountPage()));
+        });
 
         Button btnExit = new Button("Exit");
-        btnExit.setOnAction(e -> { cashMachine.exitProgram(); });
+        btnExit.setOnAction(e -> {
+            cashMachine.exitProgram();
+        });
 
-        btnCreateBasicAccount.setOnAction(e -> window.setScene(scene2));
 
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10, 15, 10, 15));
-        scene1 = new Scene (vbox, 600, 600);
 
         flowPane1.getChildren().add(btnLogin);
         flowPane1.getChildren().add(btnCreateBasicAccount);
@@ -71,23 +67,22 @@ public class CashMachineApp extends Application {
                 flowPane1,
                 textField,
                 areaInfo);
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        return vbox;
+    }
 
-
-        /*Scene2 * * * * * * * * CREATE ACCOUNT PAGE * * * * * * * * * * */
-        /*Scene2 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+    public Parent createAccountPage() {
         Text selectAccountType = new Text();
         selectAccountType.setText("Please choose an account type using the dropdown menu.");
         final ComboBox comboBox = new ComboBox(accountOptions);
         FlowPane flowPane2 = new FlowPane();
         flowPane2.setHgap(10);
         Text basicWelcome = new Text();
+        TextArea areaField1 = new TextArea();
         basicWelcome.setText("Welcome to your personalized Basic account creation.");
 
-        Button btnCreate = new Button("Submit");
-        btnCreate.setOnAction(e -> {window.setScene(scene1);});
+
         Button btnSubmit = new Button("Go Back To Login");
-        btnSubmit.setOnAction(e -> window.setScene(scene1));
+        btnSubmit.setOnAction(e -> {mainStage.setScene(new Scene(defaultPage()));});
 
         Text newName = new Text();
         newName.setText("Please enter your name:");
@@ -105,9 +100,17 @@ public class CashMachineApp extends Application {
         newDepositAmount.setText("Amount To Deposit: ");
         TextField depositField = new TextField();
 
+        Button btnCreate = new Button("Submit");
+        btnCreate.setOnAction(e -> {
+            String newNameString = nameField.getText();
+            String newEmailString = emailField.getText();
+            Integer newPinInt = Integer.parseInt(pinField.getText());
+            Integer newDepositAmountInt = Integer.parseInt(depositField.getText());
+            globalId = bank.createAccount(newNameString, newEmailString, newPinInt, newDepositAmountInt);
+            mainStage.setScene(new Scene(defaultPage()));
+        });
 
-        VBox vbox2 = new VBox();
-        scene2 = new Scene(vbox2, 600, 600);
+        VBox vbox2 = new VBox(10);
         vbox2.setPadding(new Insets(10, 15, 10, 15));
         flowPane2.getChildren().add(btnCreate);
         flowPane2.getChildren().add(btnSubmit);
@@ -124,38 +127,45 @@ public class CashMachineApp extends Application {
                 pinField,
                 newDepositAmount,
                 depositField,
-                flowPane2);
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                flowPane2,
+                areaField1);
+        return vbox2;
+    }
 
 
-        /*Scene3 * * * * * * * * * * MAIN PAGE AFTER LOGIN * * * * * * * * * * * * * * * */
-        /*Scene3 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+    public Parent LoggedInPage() {
+
         FlowPane flowPane3 = new FlowPane();
         flowPane3.setHgap(10);
         Text title = new Text();
         title.setText("Welcome to your account!");
-        TextArea accountInfoDisplay = new TextArea();
-
+        TextArea accountInfoDisplay2 = new TextArea();
+        accountInfoDisplay2.setText(cashMachine.toString());
         TextField actionField = new TextField();
         Button btnDeposit = new Button("Deposit");
         Button btnWithdraw = new Button("Withdraw");
-        Button btnGoBack = new Button("Log Out");
-        btnGoBack.setOnAction(e -> window.setScene(scene1));
+        Button btnLogOut = new Button("Log Out");
+        btnLogOut.setOnAction(e -> mainStage.setScene(new Scene(defaultPage())));
 
         VBox vbox3 = new VBox();
         flowPane3.getChildren().add(btnDeposit);
         flowPane3.getChildren().add(btnWithdraw);
-        flowPane3.getChildren().add(btnGoBack);
+        flowPane3.getChildren().add(btnLogOut);
         flowPane3.setPadding(new Insets(10, 10, 10, 0));
-        vbox3.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay);
+        vbox3.getChildren().addAll(title, actionField, flowPane3);
         vbox3.setPadding(new Insets(10, 15, 10, 15));
-        scene3 = new Scene(vbox3, 600, 600);
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        return vbox3;
+    }
 
-
-        mainStage.setScene(scene1);
+    @Override
+    public void start(Stage mainStage) throws Exception {
+        this.mainStage = mainStage;
+        mainStage.setScene(new Scene(defaultPage()));
         mainStage.show();
+    }
 
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }
