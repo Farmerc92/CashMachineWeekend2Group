@@ -22,7 +22,7 @@ public class CashMachine {
         accountData = data;
     };
 
-    public void login(int id, int pin ) {
+    public void login(int id ) {
         tryCall(
                 () -> bank.getAccountById(id),
                 update
