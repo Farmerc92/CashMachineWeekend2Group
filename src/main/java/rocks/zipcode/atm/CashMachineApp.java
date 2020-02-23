@@ -25,10 +25,10 @@ import java.util.logging.Logger;
 public class CashMachineApp extends Application {
 
     ComboBox comboBox;
-    Bank bank;
+    Bank bank = new Bank();
     Integer globalId;
     Stage mainStage;
-    CashMachine cashMachine;
+    CashMachine cashMachine = new CashMachine(bank);
     ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
     private static final Logger LOGGER = Logger.getLogger(CashMachineApp.class.getName());
 
@@ -42,7 +42,11 @@ public class CashMachineApp extends Application {
         btnLogin.setOnAction(a -> {
             int id = Integer.parseInt(textField.getText());
             cashMachine.login(id);
-            mainStage.setScene(new Scene(LoggedInPage()));
+            if (!Bank.getAccounts().containsKey(id)) {
+
+            } else {
+                mainStage.setScene(new Scene(LoggedInPage()));
+            }
         });
 
         Button btnCreateBasicAccount = new Button("Create Account");
@@ -107,7 +111,8 @@ public class CashMachineApp extends Application {
             Integer newPinInt = Integer.parseInt(pinField.getText());
             Integer newDepositAmountInt = Integer.parseInt(depositField.getText());
             globalId = bank.createAccount(newNameString, newEmailString, newPinInt, newDepositAmountInt);
-            mainStage.setScene(new Scene(defaultPage()));
+            areaField1.setText("Your new ID is : " + globalId);
+            btnCreate.setDisable(true);
         });
 
         VBox vbox2 = new VBox(10);
@@ -152,7 +157,7 @@ public class CashMachineApp extends Application {
         flowPane3.getChildren().add(btnWithdraw);
         flowPane3.getChildren().add(btnLogOut);
         flowPane3.setPadding(new Insets(10, 10, 10, 0));
-        vbox3.getChildren().addAll(title, actionField, flowPane3);
+        vbox3.getChildren().addAll(title, actionField, flowPane3, accountInfoDisplay2);
         vbox3.setPadding(new Insets(10, 15, 10, 15));
         return vbox3;
     }
