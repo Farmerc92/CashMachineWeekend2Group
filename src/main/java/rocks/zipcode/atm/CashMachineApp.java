@@ -25,6 +25,7 @@ public class CashMachineApp extends Application {
     Scene scene1, scene2, scene3;
     ComboBox comboBox;
     ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
+    Integer globalId;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,7 +46,7 @@ public class CashMachineApp extends Application {
         Button btnLogin = new Button("Login");
         TextArea areaInfo = new TextArea();
         btnLogin.setOnAction(a -> {
-            window.setScene(scene3);
+            mainStage.setScene(scene3);
             int id = Integer.parseInt(textField.getText());
             cashMachine.login(id);
 
@@ -58,7 +59,7 @@ public class CashMachineApp extends Application {
         Button btnExit = new Button("Exit");
         btnExit.setOnAction(e -> { cashMachine.exitProgram(); });
 
-        btnCreateBasicAccount.setOnAction(e -> window.setScene(scene2));
+        btnCreateBasicAccount.setOnAction(e -> mainStage.setScene(scene2));
 
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10, 15, 10, 15));
@@ -86,9 +87,9 @@ public class CashMachineApp extends Application {
         basicWelcome.setText("Welcome to your personalized Basic account creation.");
 
         Button btnCreate = new Button("Submit");
-        btnCreate.setOnAction(e -> {window.setScene(scene1);});
+        btnCreate.setOnAction(e -> {mainStage.setScene(scene1);});
         Button btnSubmit = new Button("Go Back To Login");
-        btnSubmit.setOnAction(e -> window.setScene(scene1));
+        btnSubmit.setOnAction(e -> mainStage.setScene(scene1));
 
         Text newName = new Text();
         newName.setText("Please enter your name:");
@@ -141,7 +142,13 @@ public class CashMachineApp extends Application {
         Button btnDeposit = new Button("Deposit");
         Button btnWithdraw = new Button("Withdraw");
         Button btnGoBack = new Button("Log Out");
-        btnGoBack.setOnAction(e -> window.setScene(scene1));
+        Button btnRefresh = new Button("Refresh");
+        btnGoBack.setOnAction(e -> mainStage.setScene(scene1));
+        btnRefresh.setOnAction(a -> {
+            int id = Integer.parseInt(actionField.getText());
+            cashMachine.login(id);
+
+            accountInfoDisplay.setText(cashMachine.toString());});
 
         VBox vbox3 = new VBox();
         flowPane3.getChildren().add(btnDeposit);
