@@ -48,7 +48,7 @@ public class CashMachineApp extends Application {
         flowPane1.setHgap(10);
         Button btnLogin = new Button("Login");
         TextArea areaInfo = new TextArea();
-        btnLogin.setOnAction(a -> {
+        btnLogin.setOnAction(e -> {
             int id = Integer.parseInt(textField.getText());
             //int pin = Integer.parseInt(pinField.getText());
             cashMachine.login(id);
@@ -73,6 +73,10 @@ public class CashMachineApp extends Application {
 
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10, 15, 10, 15));
+
+        btnCreateBasicAccount.setStyle("-fx-background-color: #12FFA5");
+        btnExit.setStyle("-fx-background-color: #12FFA5");
+        btnLogin.setStyle("-fx-background-color: #12FFA5");
 
         flowPane1.getChildren().add(btnLogin);
         flowPane1.getChildren().add(btnCreateBasicAccount);
@@ -130,6 +134,10 @@ public class CashMachineApp extends Application {
 
         VBox vbox2 = new VBox(10);
         vbox2.setPadding(new Insets(10, 15, 10, 15));
+
+        btnCreate.setStyle("-fx-background-color: #12FFA5");
+        btnSubmit.setStyle("-fx-background-color: #12FFA5");
+
         flowPane2.getChildren().add(btnCreate);
         flowPane2.getChildren().add(btnSubmit);
         flowPane2.setPadding(new Insets(10, 10, 10, 0));
@@ -179,6 +187,11 @@ public class CashMachineApp extends Application {
         btnLogOut.setOnAction(e -> mainStage.setScene(new Scene(defaultPage())));
 
         VBox vbox3 = new VBox();
+
+        btnDeposit.setStyle("-fx-background-color: #12FFA5");
+        btnLogOut.setStyle("-fx-background-color: #12FFA5");
+        btnWithdraw.setStyle("-fx-background-color: #12FFA5");
+
         flowPane3.getChildren().add(btnDeposit);
         flowPane3.getChildren().add(btnWithdraw);
         flowPane3.getChildren().add(btnLogOut);
