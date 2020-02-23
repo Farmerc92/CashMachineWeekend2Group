@@ -28,6 +28,7 @@ public class CashMachineApp extends Application {
     ComboBox comboBox;
     Bank bank = new Bank();
     Integer globalId;
+    Integer globalPin;
     Stage mainStage;
     CashMachine cashMachine = new CashMachine(bank);
     ObservableList<String> accountOptions = FXCollections.observableArrayList("Basic", "Premium");
@@ -39,18 +40,24 @@ public class CashMachineApp extends Application {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        Text inputIdNumber = new Text();
+        inputIdNumber.setText("Please enter your Id number below.");
         TextField textField = new TextField();
+        TextField pinField = new TextField();
         FlowPane flowPane1 = new FlowPane();
         flowPane1.setHgap(10);
         Button btnLogin = new Button("Login");
         TextArea areaInfo = new TextArea();
         btnLogin.setOnAction(a -> {
             int id = Integer.parseInt(textField.getText());
+            //int pin = Integer.parseInt(pinField.getText());
             cashMachine.login(id);
             if (!Bank.getAccounts().containsKey(id)) {
-
+                areaInfo.setText("No account with those credentials.\n" +
+                        "Please try again or create a new account.");
             } else {
                 mainStage.setScene(new Scene(LoggedInPage()));
+                areaInfo.clear();
             }
         });
 
@@ -64,7 +71,6 @@ public class CashMachineApp extends Application {
             cashMachine.exitProgram();
         });
 
-
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10, 15, 10, 15));
 
@@ -74,7 +80,9 @@ public class CashMachineApp extends Application {
 
         vbox.getChildren().addAll(
                 flowPane1,
+                inputIdNumber,
                 textField,
+                pinField,
                 areaInfo);
         return vbox;
     }

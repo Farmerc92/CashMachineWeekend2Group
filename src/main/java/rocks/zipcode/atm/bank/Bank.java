@@ -35,13 +35,25 @@ public class Bank {
 
     public ActionResult<AccountData> getAccountById(int id) {
         Account account = accounts.get(id);
+        //Account account2 = accounts.get(pin);
 
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
-            return ActionResult.fail("No account with id: " + id + "\nPlease Try again or create a new account.");
+            return ActionResult.fail("No account with those credentials. \nPlease Try again or create a new account.");
         }
     }
+
+    /*public ActionResult<AccountData> getAccountByPin(int pin) {
+        Account account = accounts.get(pin);
+
+        if (account != null) {
+            return ActionResult.success(account.getAccountData());
+        } else {
+            return ActionResult.fail("No account with id: " + pin + "\nPlease Try again or create a new account.");
+        }
+    }*/
+
 // In progress - Giles ************************************************************************************
     /*public ActionResult<AccountData> createAccount(int id) {
         Account account = accounts.get(id);
@@ -72,6 +84,7 @@ public class Bank {
     }
 
     public Integer createAccount(String name, String email, Integer pin, Integer balance){
+
         if (balance > 200){
             int premiumId = AccountData.getRandomIdPremiumAccount();
             while (this.accounts.containsKey(premiumId)){

@@ -1,12 +1,1 @@
-{
-  "4721" : {
-    "accountData" : {
-      "id" : 4721,
-      "pin" : 1234,
-      "name" : "Eri",
-      "email" : "e@email.com",
-      "balance" : 150
-    },
-    "balance" : 150
-  }
-}
+{ }
