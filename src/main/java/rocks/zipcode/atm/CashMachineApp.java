@@ -147,8 +147,21 @@ public class CashMachineApp extends Application {
         TextArea accountInfoDisplay2 = new TextArea();
         accountInfoDisplay2.setText(cashMachine.toString());
         TextField actionField = new TextField();
+
         Button btnDeposit = new Button("Deposit");
+        btnDeposit.setOnAction(e -> {
+            int amount = Integer.parseInt(actionField.getText());
+            cashMachine.deposit(amount);
+            accountInfoDisplay2.setText(cashMachine.toString());
+        });
+
         Button btnWithdraw = new Button("Withdraw");
+        btnWithdraw.setOnAction(e -> {
+            int amount = Integer.parseInt(actionField.getText());
+            cashMachine.withdraw(amount);
+            accountInfoDisplay2.setText(cashMachine.toString());
+        });
+
         Button btnLogOut = new Button("Log Out");
         btnLogOut.setOnAction(e -> mainStage.setScene(new Scene(defaultPage())));
 
