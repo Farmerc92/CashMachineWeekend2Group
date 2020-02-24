@@ -39,9 +39,20 @@ public class Bank {
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
-            return ActionResult.fail("No account with id: " + id + "\nPlease Try again or create a new account.");
+            return ActionResult.fail("No account with those credentials. \nPlease Try again or create a new account.");
         }
     }
+
+    /*public ActionResult<AccountData> getAccountByPin(int pin) {
+        Account account = accounts.get(pin);
+
+        if (account != null) {
+            return ActionResult.success(account.getAccountData());
+        } else {
+            return ActionResult.fail("No account with id: " + pin + "\nPlease Try again or create a new account.");
+        }
+    }*/
+
 // In progress - Giles ************************************************************************************
     /*public ActionResult<AccountData> createAccount(int id) {
         Account account = accounts.get(id);
