@@ -3,6 +3,7 @@ package rocks.zipcode.atm;
 import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -28,9 +29,16 @@ public class CashMachine {
                 update
         );
     }
-
+//adding a button -Giles **************************************************
+    /*public void createAccount(int id) {
+        tryCall(
+                () -> bank.getAccountById(id),
+                update
+        );
+    }*/
+//********************************************************************************
     public void deposit(int amount) {
-        if (accountData != null) {
+        if (accountData != null && amount > 0) {
             tryCall(
                     () -> bank.deposit(accountData, amount),
                     update
@@ -39,7 +47,7 @@ public class CashMachine {
     }
 
     public void withdraw(int amount) {
-        if (accountData != null) {
+        if (accountData != null && amount > 0) {
             tryCall(
                     () -> bank.withdraw(accountData, amount),
                     update
@@ -47,10 +55,19 @@ public class CashMachine {
         }
     }
 
-    public void exit() {
+    public void clear() {
         if (accountData != null) {
             accountData = null;
         }
+    }
+
+    public void exitProgram() {
+        try {
+            Bank.saveBankAccounts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 
     @Override
