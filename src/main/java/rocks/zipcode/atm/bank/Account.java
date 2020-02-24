@@ -18,6 +18,7 @@ public abstract class Account {
 
     private AccountData accountData;
 
+
     public Account(AccountData accountData) {
         this.accountData = accountData;
     }

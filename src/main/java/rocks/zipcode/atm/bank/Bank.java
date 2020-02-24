@@ -17,7 +17,7 @@ import java.util.Map;
 public class Bank {
 
 
-    private static Map<Integer, Account> accounts = new HashMap<>();
+    private static Map<Integer, Account> accounts = new HashMap<Integer, Account>();
 
     public Bank() {
 //        accounts.put(1000, new BasicAccount(new AccountData(
@@ -100,7 +100,7 @@ public class Bank {
 
     public static void saveBankAccounts() throws IOException{
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("accounts.json"), accounts);
+        mapper.writerWithType(new TypeReference<HashMap<Integer,Account>>() {} ).writeValue(new File("accounts.json"), accounts);
 
     }
 }
