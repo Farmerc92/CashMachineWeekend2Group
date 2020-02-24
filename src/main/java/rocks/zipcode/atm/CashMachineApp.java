@@ -34,11 +34,7 @@ public class CashMachineApp extends Application {
     private static final Logger LOGGER = Logger.getLogger(CashMachineApp.class.getName());
 
     public Parent defaultPage() {
-//        try {
-//            bank.loadBankAccounts();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         TextField textField = new TextField();
         FlowPane flowPane1 = new FlowPane();
         flowPane1.setHgap(10);
@@ -182,7 +178,11 @@ public class CashMachineApp extends Application {
 
     @Override
     public void start(Stage mainStage) throws Exception {
-
+        try {
+            bank.loadBankAccounts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.mainStage = mainStage;
         mainStage.setScene(new Scene(defaultPage()));
         mainStage.show();
