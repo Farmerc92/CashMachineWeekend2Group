@@ -17,7 +17,7 @@ import java.util.Map;
 public class Bank {
 
 
-    private static Map<Integer, Account> accounts = new HashMap<>();
+    private static Map<Integer, Account> accounts = new HashMap<Integer, Account>();
 
     public Bank() {
 //        accounts.put(1000, new BasicAccount(new AccountData(
@@ -39,9 +39,20 @@ public class Bank {
         if (account != null) {
             return ActionResult.success(account.getAccountData());
         } else {
-            return ActionResult.fail("No account with id: " + id + "\nPlease Try again or create a new account.");
+            return ActionResult.fail("No account with those credentials. \nPlease Try again or create a new account.");
         }
     }
+
+    /*public ActionResult<AccountData> getAccountByPin(int pin) {
+        Account account = accounts.get(pin);
+
+        if (account != null) {
+            return ActionResult.success(account.getAccountData());
+        } else {
+            return ActionResult.fail("No account with id: " + pin + "\nPlease Try again or create a new account.");
+        }
+    }*/
+
 // In progress - Giles ************************************************************************************
     /*public ActionResult<AccountData> createAccount(int id) {
         Account account = accounts.get(id);
@@ -100,8 +111,7 @@ public class Bank {
 
     public static void saveBankAccounts() throws IOException{
         ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("accounts.json"), accounts);
+        mapper.writerWithType(new TypeReference<HashMap<Integer,Account>>() {} ).writeValue(new File("accounts.json"), accounts);
 
     }
 }

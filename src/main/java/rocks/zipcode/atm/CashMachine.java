@@ -29,14 +29,14 @@ public class CashMachine {
                 update
         );
     }
-//adding a button -Giles **************************************************
-    /*public void createAccount(int id) {
+
+    /*public void getPin(int pin) {
         tryCall(
-                () -> bank.getAccountById(id),
+                () -> bank.getAccountByPin(pin),
                 update
         );
     }*/
-//********************************************************************************
+
     public void deposit(int amount) {
         if (accountData != null && amount > 0) {
             tryCall(
