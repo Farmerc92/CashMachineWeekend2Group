@@ -1,5 +1,8 @@
 package rocks.zipcode.atm.bank;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Random;
 
 /**
@@ -13,7 +16,8 @@ public final class AccountData {
     private final String email;
     private final int balance;
 
-    AccountData(int newId, int newPin, String newName, String newEmail, int newBalance) {
+    @JsonCreator
+    AccountData(@JsonProperty("id")int newId, @JsonProperty("pin")int newPin, @JsonProperty("name")String newName, @JsonProperty("email")String newEmail, @JsonProperty("balance")int newBalance) {
         this.id = newId;
         this.pin = newPin;
         this.name = newName;

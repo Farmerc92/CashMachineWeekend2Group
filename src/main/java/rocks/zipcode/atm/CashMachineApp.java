@@ -35,13 +35,9 @@ public class CashMachineApp extends Application {
     private static final Logger LOGGER = Logger.getLogger(CashMachineApp.class.getName());
 
     public Parent defaultPage() {
-//        try {
-//            bank.loadBankAccounts();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         Text inputIdNumber = new Text();
         inputIdNumber.setText("Please enter your Id number below.");
+
         TextField textField = new TextField();
         TextField pinField = new TextField();
         FlowPane flowPane1 = new FlowPane();
@@ -203,7 +199,11 @@ public class CashMachineApp extends Application {
 
     @Override
     public void start(Stage mainStage) throws Exception {
-
+        try {
+            bank.loadBankAccounts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.mainStage = mainStage;
         mainStage.setScene(new Scene(defaultPage()));
         mainStage.show();
