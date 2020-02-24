@@ -100,8 +100,7 @@ public class Bank {
 
     public static void saveBankAccounts() throws IOException{
         ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("accounts.json"), accounts);
+        mapper.writeValue(new File("accounts.json"), accounts);
 
     }
 }
